@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>NBA Player Comparison App</title>
+    <link href="index.css" rel="stylesheet" type="text/css" />
+    <link href="grid.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  </head>
+  <body>
+    <main role="main">
+      
+      
+      <section class="search-players" role="region">
+      <div class="row">
+        <div class="col-12">
+          <h1>Search and select two or more NBA players and then compare them by points, rebounds, or assists! </h1>
+        </div>
+      </div>
+        <form class="js-search-SportsFeeds" role="form">
+          <fieldset name="Player Search">
+          <legend>Please enter either a first and last name or just a last name</legend>
+          <label for="first-name"></label>
+          <input type="text" class="js-query-first" id="first-name" placeholder="First Name" autofocus>
+          <label for="last-name"></label>
+          <input type="text" class="js-query-last" id="last-name" placeholder="Last Name">
+          <button class="player-search">Search for Players</button>
+          </fieldset>
+        </form>
+         <div class="row">
+           <div class="display-saved-wrapper">
+          
+          
+        </div>
+        
+        <section class="js-search-results" role="region" aria-live="assertive">
+      
+        </section>
+      </div>
+      </section>
+      <div class="row">
+        <section class="saved-players" role="region" aria-live="assertive">
+        <h1>Saved Players</h1> <button class='remove-players'>Remove Saved Players</button> <button class='comparePoints'> Compare Points Per Game</button> <button class=compare-rebounds>Compare Rebounds Per Game</button><button class='compare-assists'>Compare Assists Per Game</button>
+       </section>
+    </div>
+       
+      
+   
+    </main>
+     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
