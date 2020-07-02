@@ -88,7 +88,7 @@ body{
  
    .saved-player p{
      position: relative;
-     left: 30%;
+     text-align: center;
      font-size: 17px;
    }
  
@@ -121,6 +121,8 @@ body{
  .player-image{
    width:80%;
    text-align: center;
+   display: block;
+   margin: 0 auto;
  }
  
  
@@ -183,4 +185,8 @@ body{
    font-weight: bold;
    border-radius: 70%;
    padding: 10px;
+ }
+
+form label {
+display: none;
  }

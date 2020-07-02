@@ -63,7 +63,7 @@ function showSearchResults() {
 function homeToSave() {
   $(".display-saved-players").click(function () {
     $(".search-players").hide();
-    $savedPlayers.show();
+    $(".saved-players").show();
   })
 }
 
@@ -88,7 +88,7 @@ function displaySportsFeedsSearchData(data) {
 
 function renderResult(player) {
   if (STATE.savedPlayers.length === 0) {
-    $savedPlayers.empty();
+    $(".saved-players").empty();
     return `
       <div class="col-6">
       <section class="player" role="region">
@@ -155,7 +155,7 @@ function renderSavedPlayers(savedPlayer) {
 }
 
 function displaySavedPlayers(data) {
-  $savedPlayers.empty();
+  $(".saved-players").empty();
   let html = "<h1>Saved Players</h1> <div class='display-saved-wrapper'><button class='remove-players'>Remove Saved Players</button> <button class='compare-points'> Compare Points Per Game</button> <button class='compare-rebounds'>Compare Rebounds Per Game</button><button class='compare-assists'>Compare Assists Per Game</button></div>"
   if (STATE.savedPlayers.length === 0) {
     html +=
@@ -181,10 +181,10 @@ function savedPlayersClick() {
 }
 
 function removeSavedPlayers() {
-  $savedPlayers.on("click", ".remove-players", function () {
+  $(".saved-players").on("click", ".remove-players", function () {
     STATE.savedPlayers = [];
-    $savedPlayers.empty();
-    $savedPlayers.append(
+    $(".saved-players").empty();
+    $(".saved-players").append(
       `
       <div class="display-saved-wrapper">
       
@@ -197,8 +197,8 @@ function removeSavedPlayers() {
 
 
 function backToSearch() {
-  $savedPlayers.on('click', '.back-to-search', function () {
-    $savedPlayers.hide();
+  $(".saved-players").on('click', '.back-to-search', function () {
+    $(".saved-players").hide();
     $(".search-players").show();
     $(".player").remove();
     $(hideSearchResults);
@@ -215,13 +215,13 @@ function removeFromHome() {
 
 
 function comparePoints() {
-  $savedPlayers.on('click', '.compare-points', function () {
+  $(".saved-players").on('click', '.compare-points', function () {
     STATE.savedPlayers.sort(function (a, b) {
       return parseFloat(b.stats.offense.ptsPerGame) - (a.stats.offense.ptsPerGame);
     })
 
-    $savedPlayers.empty();
-    $savedPlayers.append("<h1>Players sorted by points per game scored</h1> <div class='display-saved-wrapper'><button class='remove-players'>Remove Saved Players</button> <button class='comparePoints'> Compare Points Per Game</button> <button class=compare-rebounds>Compare Rebounds Per Game</button><button class='compare-assists'>Compare Assists Per Game</button> <div class='row><div class='col-12'></div></div></div>")
+    $(".saved-players").empty();
+    $(".saved-players").append("<h1>Players sorted by points per game scored</h1> <div class='display-saved-wrapper'><button class='remove-players'>Remove Saved Players</button> <button class='comparePoints'> Compare Points Per Game</button> <button class=compare-rebounds>Compare Rebounds Per Game</button><button class='compare-assists'>Compare Assists Per Game</button> <div class='row><div class='col-12'></div></div></div>")
     STATE.savedPlayers.forEach(function (player, index) {
       renderPointsScored(player, index);
     });
@@ -230,7 +230,7 @@ function comparePoints() {
 }
 
 function renderPointsScored(player, index) {
-  $savedPlayers.append(
+  $(".saved-players").append(
     `
     <div class="col-6">
     <div class="player">
@@ -246,8 +246,8 @@ function renderPointsScored(player, index) {
 }
 
 function backFromPoints() {
-  $savedPlayers.on('click', '.back-from-points', function () {
-    $savedPlayers.hide();
+  $(".saved-players").on('click', '.back-from-points', function () {
+    $(".saved-players").hide();
     $(".search-players").show();
     $(".player").remove();
     $(hideSearchResults)
@@ -255,13 +255,13 @@ function backFromPoints() {
 }
 
 function compareRebounds() {
-  $savedPlayers.on('click', '.compare-rebounds', function () {
+  $(".saved-players").on('click', '.compare-rebounds', function () {
     STATE.savedPlayers.sort(function (a, b) {
       return parseFloat(b.stats.rebounds.rebPerGame['#text']) - (a.stats.rebounds.rebPerGame['#text']);
     })
 
-    $savedPlayers.empty();
-    $savedPlayers.append("<h1>Players sorted by rebounds collected</h1> <div class='row'><div class='col-12'><div class='display-saved-wrapper'><button class='remove-players'>Remove Saved Players</button> <button class='compare-points'> Compare Points Per Game</button> <button class=compare-rebounds>Compare Rebounds Per Game</button><button class='compare-assists'>Compare Assists Per Game</button></div></div></div>")
+    $(".saved-players").empty();
+    $(".saved-players").append("<h1>Players sorted by rebounds collected</h1> <div class='row'><div class='col-12'><div class='display-saved-wrapper'><button class='remove-players'>Remove Saved Players</button> <button class='compare-points'> Compare Points Per Game</button> <button class=compare-rebounds>Compare Rebounds Per Game</button><button class='compare-assists'>Compare Assists Per Game</button></div></div></div>")
 
     let reboundsSorted = STATE.savedPlayers.map(function (player, index) {
       return renderRebounds(player, index);
@@ -270,7 +270,7 @@ function compareRebounds() {
 }
 
 function renderRebounds(player, index) {
-  $savedPlayers.append(`
+  $(".saved-players").append(`
     <div class="col-6">
     <div class="player">
       ${ player.player.firstName ? `<img class="player-image" src="https://nba-players.herokuapp.com/players/${player.player.lastName}/${player.player.firstName}" />` : ""}
@@ -285,8 +285,8 @@ function renderRebounds(player, index) {
 }
 
 function backFromRebounds() {
-  $savedPlayers.on('click', '.back-from-rebounds', function () {
-    $savedPlayers.hide();
+  $(".saved-players").on('click', '.back-from-rebounds', function () {
+    $(".saved-players").hide();
     $(".search-players").show();
     $(".player").remove();
     $(hideSearchResults)
@@ -294,13 +294,13 @@ function backFromRebounds() {
 }
 
 function compareAssists() {
-  $savedPlayers.on('click', '.compare-assists', function () {
+  $(".saved-players").on('click', '.compare-assists', function () {
     STATE.savedPlayers.sort(function (a, b) {
       return parseFloat(b.stats.offense.astPerGame) - (a.stats.offense.astPerGame);
     })
 
-    $savedPlayers.empty();
-    $savedPlayers.append("<h1>Players sorted by assists dished</h1> <div class='row'><div class='col-12'><div class='display-saved-wrapper'><button class='remove-players'>Remove Saved Players</button> <button class='compare-points'> Compare Points Per Game</button> <button class=compare-rebounds>Compare Rebounds Per Game</button><button class='compare-assists'>Compare Assists Per Game</button></div></div></div>")
+    $(".saved-players").empty();
+    $(".saved-players").append("<h1>Players sorted by assists dished</h1> <div class='row'><div class='col-12'><div class='display-saved-wrapper'><button class='remove-players'>Remove Saved Players</button> <button class='compare-points'> Compare Points Per Game</button> <button class=compare-rebounds>Compare Rebounds Per Game</button><button class='compare-assists'>Compare Assists Per Game</button></div></div></div>")
 
     let reboundsSorted = STATE.savedPlayers.map(function (player, index) {
       return renderAssists(player, index);
@@ -310,7 +310,7 @@ function compareAssists() {
 }
 
 function renderAssists(player, index) {
-  $savedPlayers.append(`
+  $(".saved-players").append(`
     <div class="col-6">
     <div class="player">
       ${ player.player.firstName ? `<img class="player-image" src="https://nba-players.herokuapp.com/players/${player.player.lastName}/${player.player.firstName}" />` : ""}
@@ -325,8 +325,8 @@ function renderAssists(player, index) {
 }
 
 function backFromAssists() {
-  $savedPlayers.on('click', '.back-from-assists', function () {
-    $savedPlayers.hide();
+  $(".saved-players").on('click', '.back-from-assists', function () {
+    $(".saved-players").hide();
     $(".search-players").show();
     $(".player").remove();
   })
