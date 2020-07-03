@@ -7,7 +7,7 @@ function hideSavedSection() {
 }
 
 function getDataFromApi(searchTerm, callback) {
-  $.ajax
+  fetch
     ({
       type: "GET",
       url: "https://api.mysportsfeeds.com/v2.1/pull/nba/2019-2020-regular/player_stats_totals.json",
@@ -34,6 +34,7 @@ function watchSubmit() {
       showSearchResults()
       getDataFromApi($('#last-name').val(), displaySportsFeedsSearchData);
     }
+    //Player must at least have a last name entered in API, so if one does not exist then app needs to display an error
     else {
       alert("Please enter first and last name");
     }
@@ -75,6 +76,7 @@ function displaySportsFeedsSearchData(data) {
   if (STATE.results.length === 0) {
     alert("Sorry, no players by that name found")
   }
+  //Get the data back from the API, map over it, and for each individual player, run the renderResult function that will display them on the page
   else {
     const results = data.playerStatsTotals.map(function (player, index) {
       return renderResult(player);
@@ -92,6 +94,7 @@ function renderResult(player) {
     return `
       <div class="col-6">
       <section class="player" role="region">
+      // We are using a separate site, nba-players.com, to get images for each player by inserting their name into a certain address on the site
       ${player.player.firstName ? `<img class="player-image" src="https://nba-players.herokuapp.com/players/${player.player.lastName}/${player.player.firstName}" />` : ""}
       <p>${player.player.firstName} ${player.player.lastName}</p>
       <p>${player.team.abbreviation}</p>
@@ -124,11 +127,12 @@ function renderResult(player) {
 function savePlayer() {
   $(".js-search-results").on("click", ".save", function (event) {
     const clickedId = $(this).data('playerId');
+    // Figuring out which player returned from the API should be saved by using their player ID assigned by the API and comparing it to the ID we saved from the click event
     const playerToBeSaved = STATE.results.find(item => {
       return item.player.id == `${clickedId}`;
     })
 
-
+    // Search state to make sure we do not have a duplicate ID already saved
     if (STATE.savedPlayers.find(p => p.player.id === playerToBeSaved.player.id)) {
       alert("Player already selected");
     } else {
@@ -163,6 +167,8 @@ function displaySavedPlayers(data) {
       <h1>You have not selected any players yet</h1>
       `
   }
+  // Iterate over the players that have been saved by the user, run the function to display them on each, add them to an html variable, put the html in the .saved-players section
+
   else {
     html+=data.savedPlayers.map(function (savedPlayer, index) {
       return renderSavedPlayers(savedPlayer);
@@ -180,6 +186,7 @@ function savedPlayersClick() {
   })
 }
 
+// Empty the STATE.savedPlayers array and append the HRML to $savedPlayers
 function removeSavedPlayers() {
   $savedPlayers.on("click", ".remove-players", function () {
     STATE.savedPlayers = [];
@@ -216,6 +223,7 @@ function removeFromHome() {
 
 function comparePoints() {
   $savedPlayers.on('click', '.compare-points', function () {
+    // Use the .sort function to figure out how to rank the players using statistical data from the API
     STATE.savedPlayers.sort(function (a, b) {
       return parseFloat(b.stats.offense.ptsPerGame) - (a.stats.offense.ptsPerGame);
     })
