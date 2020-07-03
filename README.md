@@ -1,5 +1,6 @@
 # NBA-Comparison-App
 An app that lets users compare any NBA players by a variety of metrics
+ https://seanreedy1.github.io/NBA-Comparison-App/
 
 ![NBAImg1](https://user-images.githubusercontent.com/33698815/86485571-a39f0e00-bd1e-11ea-9ffa-462a091cc048.png)
 
