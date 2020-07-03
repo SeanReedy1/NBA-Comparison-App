@@ -8,19 +8,16 @@ function hideSavedSection() {
 
 function getDataFromApi(searchTerm, callback) {
   fetch
-    ({
-      type: "GET",
-      url: "https://api.mysportsfeeds.com/v2.1/pull/nba/2019-2020-regular/player_stats_totals.json",
-      dataType: 'json',
-      async: false,
-      data: { player: searchTerm },
+    (`https://api.mysportsfeeds.com/v2.1/pull/nba/2019-2020-regular/player_stats_totals.json?player=${searchTerm}`, { 
+      method: "GET",
       headers: {
         "Authorization": "Basic " + btoa("5dd8ddef-d120-481b-8776-f0cd42" + ":" + "MYSPORTSFEEDS")
       },
-      success: function (data) {
-        callback(data);
-      }
-    });
+    }).then(res => res.json())
+    .then(data => {
+      console.log(data);
+      callback(data);
+    })
 }
 
 function watchSubmit() {
@@ -89,12 +86,13 @@ function displaySportsFeedsSearchData(data) {
 }
 
 function renderResult(player) {
+  //We are using a separate site, nba-players.com, to get images for each player by inserting their name into a certain address on the site
   if (STATE.savedPlayers.length === 0) {
     $savedPlayers.empty();
     return `
       <div class="col-6">
       <section class="player" role="region">
-      // We are using a separate site, nba-players.com, to get images for each player by inserting their name into a certain address on the site
+      
       ${player.player.firstName ? `<img class="player-image" src="https://nba-players.herokuapp.com/players/${player.player.lastName}/${player.player.firstName}" />` : ""}
       <p>${player.player.firstName} ${player.player.lastName}</p>
       <p>${player.team.abbreviation}</p>
